@@ -1,0 +1,30 @@
+name: Run Python script daily
+
+on:
+  schedule:
+    - cron:  '0 0 * * *'  # Runs every day at midnight
+  push:
+    branches:
+      - main
+  issues:
+    types: [opened, closed, reopened]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install requests mysql-connector-python
+
+    - name: Run script
+      run: python main.py
