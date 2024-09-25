@@ -3,12 +3,8 @@ name: Run Python script daily
 on:
   schedule:
     - cron:  '0 0 * * *'  # Runs every day at midnight
-  push:
-    branches:
-      - main
-  issues:
-    types: [opened, closed, reopened]
-
+  workflow_dispatch:
+ 
 jobs:
   build:
 
@@ -27,4 +23,12 @@ jobs:
         pip install requests mysql-connector-python
 
     - name: Run script
+      env:
+        STEAM_API_TOKEN: ${{ secrets.STEAM_API_TOKEN }}
+        STEAM_API_ID: ${{ secrets.STEAM_API_ID }}
+        GREPTIME_HOST: ${{ secrets.GREPTIME_HOST }}
+        GREPTIME_PORT: ${{ secrets.GREPTIME_PORT }}
+        GREPTIME_DATABASE: ${{ secrets.GREPTIME_DATABASE }}
+        GREPTIME_USERNAME: ${{ secrets.GREPTIME_USERNAME }}
+        GREPTIME_PASSWORD: ${{ secrets.GREPTIME_PASSWORD }}
       run: python main.py
