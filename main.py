@@ -51,6 +51,7 @@ if __name__ == '__main__':
     response = requests.get(url)
     data = response.json()
 
+    print(data)
     insert_to_db(data)
 
 
