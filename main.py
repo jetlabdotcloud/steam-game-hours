@@ -27,13 +27,7 @@ def insert_to_db(data):
     cursor = conn.cursor()
 
     # Create a table in the database
-    cursor.execute('''CREATE TABLE IF NOT EXISTS "recently_play_games" (
-                                                  "ts" TIMESTAMP(3) NOT NULL DEFAULT current_timestamp(),
-                                                  "appid" INT NULL,
-                                                  "game_name" STRING NULL,
-                                                  "playtime_2weeks" FLOAT NULL,
-                                                  "playtime_forever" FLOAT NULL,
-                                                  TIME INDEX ("ts"))''')
+    cursor.execute("CREATE TABLE IF NOT EXISTS recently_play_games (ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP() TIME INDEX,appid INT, game_name STRING, playtime_2weeks FLOAT32 , playtime_forever FLOAT32)")
 
     # Write an SQL query to insert data into the database
     for game in data['response']['games']:
